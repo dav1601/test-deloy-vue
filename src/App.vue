@@ -1,28 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <the-header v-show="$route.name !== '404'"></the-header>
+    <v-main>
+      <dav-container>
+        <v-scroll-x-transition mode="out-in">
+          <router-view></router-view>
+        </v-scroll-x-transition>
+      </dav-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from "./components/layout/TheHeader.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { TheHeader },
+  name: "App",
+  created() {
+    this.$store.dispatch("auth/tryLogin");
+  },
+};
 </script>
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+}
+ol,
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  margin: 0;
 }
 </style>
